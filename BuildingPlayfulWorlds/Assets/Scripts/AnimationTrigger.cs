@@ -6,16 +6,16 @@ public class AnimationTrigger : MonoBehaviour
 {
     [SerializeField] private Animator animatedObject;
 
-    [SerializeField] private GameObject cube;
-
-    [SerializeField] private Material newMaterial;
-
-    [SerializeField] private GameObject animatedText;
-        
+    [SerializeField] private AudioSource soundFile;
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void FadeOut()
+    {
+        animatedObject.Play("FadeOutTextAnimation");
         
     }
 
@@ -23,11 +23,15 @@ public class AnimationTrigger : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            cube.GetComponent<Renderer>().material = newMaterial; 
-            animatedObject.SetTrigger("CubeAnimationTrigger");
+            GetComponent<BoxCollider>().enabled = false;
+            animatedObject.Play("FadeTextAnimation");
+            soundFile.Play();
 
-            animatedText.SetActive(true);
-            animatedText.GetComponent<Animator>().SetTrigger("AnimateText");
+            float invokeTime = soundFile.clip.length;
+            Invoke("FadeOut", invokeTime);
+            
+            
+
         }
 
        

@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private CharacterController controller;
+
+    private bool holdskey = false;
+
+    public bool HoldsKey { get { return holdskey; } set { holdskey = this; } }
     
     void Update()
     {
@@ -19,8 +23,11 @@ public class Player : MonoBehaviour
         Vector3 forwardVector = transform.forward * rightInput * movingSpeed;
         Vector3 rightVector = transform.right * fowardInput * movingSpeed;
 
-        Debug.Log(movingSpeed);
+
         controller.SimpleMove(forwardVector + rightVector);
+
+        Debug.Log(holdskey);
         
     }
+    
 }
